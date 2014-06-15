@@ -3,6 +3,8 @@ from flask import render_template, flash, redirect, url_for, session, request, g
 from forms import LoginForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN
 
+import pdb
+
 #Flask Login Imports
 from flask.ext.login import login_user, logout_user, current_user, login_required
 
@@ -53,7 +55,7 @@ def after_login(resp):
         flash('Invalid Login, please try again')
         return redirect(url_for('login'))
 
-    user = User.query.filte_br(email= resp.email).first()
+    user = User.query.filter_by(email= resp.email).first()
 
     if user is None:
         nickname = resp.nickname
@@ -62,14 +64,19 @@ def after_login(resp):
 
         user = User(nickname=nickname, email= resp.email, role=ROLE_USER)
         db.session.add(user)
-        db.commit()
+        db.session.commit()
 
     remember_me = False
     if 'remember_me' in session:
         remember_me = session['remember_me']
         session.pop(remember_me, None)
-
+    
     login_user(user, remember=remember_me)
-
+    
     return redirect(request.args.get('next') or url_for('index'))
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
     
