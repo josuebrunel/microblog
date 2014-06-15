@@ -1,3 +1,7 @@
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 CSFR_ENABLED = True
 SECRET_KEY = '13ru11el120u12a'
 
@@ -8,3 +12,7 @@ OPENID_PROVIDERS = [
     { 'name': 'Flickr', 'url': 'http://www.flickr.com/<username>' },
     { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }
 ]
+
+#DATABASE
+SQLALCHEMY_DATABASE_URI = "mysql://flask:flask@localhost/microbloging"
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir,'db_repository')
