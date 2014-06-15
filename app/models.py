@@ -13,6 +13,20 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.nickname)
 
+    #Flask-Login required methods
+
+    def is_authenticated():
+        return True
+
+    def is_active():
+        return True
+
+    def is_anonymous():
+        return False
+
+    def get_id():
+        return unicode(self.id)
+    
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
