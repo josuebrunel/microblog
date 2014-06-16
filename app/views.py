@@ -3,6 +3,8 @@ from flask import render_template, flash, redirect, url_for, session, request, g
 from forms import LoginForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN
 
+from datetime import datetime
+
 import pdb
 
 #Flask Login Imports
@@ -15,6 +17,10 @@ def load_user(id):
 @app.before_request
 def before_request():
     g.user = current_user
+    if g.user.is_authenticated():
+        g.user.last_seen = datetime.now()
+        db.session.add(g.user)
+        db.session.commit()
     
 @app.route('/')
 @app.route('/index')
