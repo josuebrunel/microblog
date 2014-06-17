@@ -8,6 +8,10 @@ from flask.ext.openid import OpenID
 from config import basedir
 from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 
+    
+app = Flask(__name__)
+app.config.from_object('config')
+
 ##LOGGING INTO EMAIL
 if not app.debug:
     import logging
@@ -31,9 +35,6 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.info('microblog startup')
 ##
-    
-app = Flask(__name__)
-app.config.from_object('config')
 
 #Init DB
 db = SQLAlchemy(app)
