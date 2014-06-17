@@ -1,4 +1,5 @@
 import os
+from email_secret import MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -16,3 +17,8 @@ OPENID_PROVIDERS = [
 #DATABASE
 SQLALCHEMY_DATABASE_URI = "mysql://flask:flask@localhost/microbloging"
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir,'db_repository')
+
+#ADMINS
+ADMINS = [
+    'josue@josuebrunel',
+]

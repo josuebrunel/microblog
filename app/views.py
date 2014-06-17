@@ -10,6 +10,17 @@ import pdb
 #Flask Login Imports
 from flask.ext.login import login_user, logout_user, current_user, login_required
 
+#ERRORS HANDLERS
+@app.errorhandler(404)
+def not_found_error():
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error():
+    db.session.rollback()
+    return render_template('500.html'), 500
+################
+
 @lm.user_loader
 def load_user(id):
     return User.query.get(id)
@@ -83,7 +94,7 @@ def after_login(resp):
         nickname = resp.nickname
         if nickname is None or nickname == '':
             nickname = resp.email.split('@')[0]
-
+        nickname = User.make_unique_nickname(nickname) #Prevent nickname duplication
         user = User(nickname=nickname, email= resp.email, role=ROLE_USER)
         db.session.add(user)
         db.session.commit()
