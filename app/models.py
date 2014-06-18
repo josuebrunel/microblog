@@ -5,6 +5,12 @@ from hashlib import md5
 ROLE_USER = 0
 ROLE_ADMIN = 1
 
+followers = db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String(64), index=True, unique=True)
@@ -13,7 +19,27 @@ class User(db.Model):
     posts = db.relationship('Post', backref= 'author', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime)
+    #Followers and Followed Implementation
+    followed = db.relationship('User',
+        secondary = followers, #Association table used for that relationship
+        primaryjoin = (followers.c.follower_id == id),
+        secondaryjoin = (followers.c.followed_id == id),
+        backref = db.backref('followers', lazy = 'dynamic'),
+        lazy = 'dynamic'
+    )
 
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+            return self
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    def is_following(self, user):
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
+    
     def __repr__(self):
         return '<User %r>' % (self.nickname)
 
@@ -57,3 +83,6 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' %(self.body)
+
+
+
