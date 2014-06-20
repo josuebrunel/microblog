@@ -37,4 +37,4 @@ class PostForm(Form):
 
 
 class SearchForm(Form):
-    searhc = TextField('search', validators= [Required()])
+    search = TextField('search', validators= [Required()])
