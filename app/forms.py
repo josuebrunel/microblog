@@ -35,3 +35,6 @@ class EditForm(Form):
 class PostForm(Form):
     post = TextField('post', validators= [Required('This field is required')])
 
+
+class SearchForm(Form):
+    searhc = TextField('search', validators= [Required()])
