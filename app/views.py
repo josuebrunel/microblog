@@ -3,7 +3,10 @@ from flask import render_template, flash, redirect, url_for, session, request, g
 from forms import LoginForm, EditForm, PostForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN
 
+from config import POSTS_PER_PAGE
+
 from datetime import datetime
+
 
 import pdb
 
@@ -35,8 +38,9 @@ def before_request():
     
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
+@app.route('/index/<int:page>', methods=['GET', 'POST'])
 @login_required
-def index():
+def index(page= 1):
     form = PostForm()
     if form.validate_on_submit():
         post = Post(body= form.post.data, timestamp = datetime.utcnow(), author = g.user)
@@ -45,7 +49,7 @@ def index():
         flash('Your post is now live!')
         return redirect(url_for('index'))
         
-    posts = g.user.followed_posts().all()
+    posts = g.user.followed_posts().paginate(page, POSTS_PER_PAGE, False)#Pagination
     return render_template('index.html',
         title = 'Home',
         form = form,

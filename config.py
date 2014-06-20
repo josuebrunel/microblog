@@ -22,3 +22,5 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir,'db_repository')
 ADMINS = [
     'josue@josuebrunel',
 ]
+
+POSTS_PER_PAGE = 3
