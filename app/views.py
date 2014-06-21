@@ -2,6 +2,7 @@ from app import app, db, lm, oid
 from flask import render_template, flash, redirect, url_for, session, request, g
 from forms import LoginForm, EditForm, PostForm, SearchForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN
+from emails import follower_notification
 
 from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS
 
@@ -153,7 +154,7 @@ def follow(nickname):
 
     db.session.add(u)
     db.session.commit()
-
+    follower_notification(user, g.user)
     flash("You're now following"+ nickname+'!')
     return redirect(url_for('user', nickname= nickname))
 
@@ -194,4 +195,5 @@ def search():
 @login_required
 def search_results(query):
     results = Post.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
+    #print(results)
     return render_template('search_results.html', query= query, results= results)

@@ -1,12 +1,13 @@
 import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.mail import Mail
 
 from flask.ext.login import LoginManager
 from flask.ext.openid import OpenID
 
 from config import basedir
-from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
+from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_PORT, MAIL_SSL
 
     
 app = Flask(__name__)
@@ -36,6 +37,9 @@ if not app.debug:
     app.logger.info('microblog startup')
 ##
 
+#Email
+mail = Mail(app)
+    
 #Init DB
 db = SQLAlchemy(app)
 

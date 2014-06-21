@@ -1,5 +1,5 @@
 import os
-from email_secret import MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
+from email_secret import MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_SSL, MAIL_TLS
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -21,6 +21,7 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir,'db_repository')
 #ADMINS
 ADMINS = [
     'josue@josuebrunel',
+    'josuebrunel@gmail.com'
 ]
 
 POSTS_PER_PAGE = 3
