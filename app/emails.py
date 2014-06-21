@@ -5,7 +5,9 @@ from flask import render_template
 from config import ADMINS
 
 from threading import Thread
+from decorators import async
 
+@async
 def send_async_email(msg):
     mail.send(msg)
 
@@ -14,8 +16,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
     msg = Message(subject, sender, recipients)
     msg.body = text_body
     msg.html = html_body
-    thr = Thread(target = send_async_email, args = [msg]) #Threading send_email
-    thr.start()
+    send_async_email(msg)
 
 def follower_notification(followed, follower):
 
