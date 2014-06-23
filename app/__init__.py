@@ -9,9 +9,14 @@ from flask.ext.openid import OpenID
 from config import basedir
 from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_PORT, MAIL_SSL
 
+from momentsjs import Momentsjs
+
     
 app = Flask(__name__)
 app.config.from_object('config')
+
+app.jinja_env.globals['momentjs'] = Momentsjs #We expose that call as a global variable for all templates
+
 
 ##LOGGING INTO EMAIL
 if not app.debug:
