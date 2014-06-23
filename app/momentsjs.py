@@ -16,7 +16,7 @@ class Momentsjs(object):
 
     def fromNow(self,):
         return self.render("fromNow()")
-
+ 
 
     
 

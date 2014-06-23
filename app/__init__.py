@@ -5,6 +5,7 @@ from flask.ext.mail import Mail
 
 from flask.ext.login import LoginManager
 from flask.ext.openid import OpenID
+from flask.ext.babel import Babel
 
 from config import basedir
 from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_PORT, MAIL_SSL
@@ -17,6 +18,7 @@ app.config.from_object('config')
 
 app.jinja_env.globals['momentjs'] = Momentsjs #We expose that call as a global variable for all templates
 
+babel = Babel(app)
 
 ##LOGGING INTO EMAIL
 if not app.debug:

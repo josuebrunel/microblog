@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# ...
+
 import os
 from email_secret import MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_SSL, MAIL_TLS
 
@@ -27,3 +30,9 @@ ADMINS = [
 POSTS_PER_PAGE = 3
 
 MAX_SEARCH_RESULTS = 50
+
+#BABEL
+LANGUAGES = {
+    'en': 'English',
+    'fr': 'Français'
+}
