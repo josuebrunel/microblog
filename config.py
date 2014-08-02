@@ -2,12 +2,13 @@
 # ...
 
 import os
+from uuid import uuid4
 from email_secret import MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_SSL, MAIL_TLS
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 CSFR_ENABLED = True
-SECRET_KEY = '13ru11el120u12a'
+SECRET_KEY = uuid4().hex
 
 OPENID_PROVIDERS = [
     { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },

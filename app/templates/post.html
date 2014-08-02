@@ -1,5 +1,8 @@
 <table>
     <tr valign="top">
         <td><img src="{{post.author.avatar(50)}}"></td><td><i>{{post.author.nickname}} said {{momentjs(post.timestamp).fromNow()}}:</i><br>{{post.body}}</td>
+	{%if post.author.id == g.user.id%}
+	<td><a href="{{url_for('delete', id= post.id)}}">Delete</a></td>
+	{%endif%}
     </tr>
 </table>
