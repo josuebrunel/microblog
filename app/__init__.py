@@ -49,7 +49,11 @@ mail = Mail(app)
     
 #Init DB
 db = SQLAlchemy(app)
-
+try:
+    db.create_all()
+except Exception, e:
+    print(e)
+    
 #Login Manager
 lm = LoginManager()
 lm.init_app(app)

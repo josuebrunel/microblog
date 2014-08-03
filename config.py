@@ -19,7 +19,7 @@ OPENID_PROVIDERS = [
 ]
 
 #DATABASE
-SQLALCHEMY_DATABASE_URI = "mysql://flask:flask@localhost/microbloging"
+SQLALCHEMY_DATABASE_URI = "mysql://flask:flask@localhost/microblogging"
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir,'db_repository')
 
 #ADMINS
